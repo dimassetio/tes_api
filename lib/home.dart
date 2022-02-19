@@ -31,6 +31,15 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         centerTitle: true,
         title: Text("INFO COVID INDONESIA"),
+        actions: [
+          IconButton(
+              onPressed: () {
+                setState(() {
+                  getData();
+                });
+              },
+              icon: Icon(Icons.refresh))
+        ],
       ),
       body: SingleChildScrollView(
           child: Container(
@@ -48,7 +57,7 @@ class _HomePageState extends State<HomePage> {
                               alignment: Alignment.centerLeft,
                               margin: EdgeInsets.all(8),
                               child: Text(
-                                "Last Updated : ${raw.lastDate is DateTime ? DateFormat('EEE, d MMM y').format(raw.lastDate!) : ''}",
+                                "Last Updated : ${raw.lastDate != null ? DateFormat('EEEEEE, d MMM y').format(raw.lastDate!) : ''}",
                                 style: TextStyle(
                                     fontSize: 16, fontWeight: FontWeight.bold),
                               ),
@@ -56,7 +65,7 @@ class _HomePageState extends State<HomePage> {
                             ListView.builder(
                                 shrinkWrap: true,
                                 physics: ScrollPhysics(),
-                                itemCount: raw.listData!.length,
+                                itemCount: raw.listData?.length ?? 0,
                                 itemBuilder: (context, index) {
                                   ListDatum provData = raw.listData![index];
                                   return ItemCard(provData);
@@ -73,6 +82,7 @@ class _HomePageState extends State<HomePage> {
 
 class ItemCard extends StatelessWidget {
   ItemCard(this.provData);
+
   ListDatum provData;
   @override
   Widget build(BuildContext context) {
