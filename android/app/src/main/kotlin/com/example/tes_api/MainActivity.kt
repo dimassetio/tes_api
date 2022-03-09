@@ -1,4 +1,4 @@
-package com.example.tes_api
+package com.dimasst.ingcov
 
 import io.flutter.embedding.android.FlutterActivity
 
